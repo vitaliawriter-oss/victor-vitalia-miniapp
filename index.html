@@ -127,7 +127,7 @@
 <div class="app">
   <div class="header">
     <div class="logo-dot"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
-    <div><div class="brand-text">Victor Vitalia</div><div class="brand-sub-text">Diagnóstico gratuito · Compra directa</div></div>
+    <div><div class="brand-text">Victor Vitalia</div><div class="brand-sub-text">© Victor Vitalia · Diagnóstico gratuito</div></div>
   </div>
 
   <!-- INTRO -->
@@ -201,6 +201,7 @@
       <div class="email-error" id="email-error">Por favor introduce un email válido para continuar.</div>
       <button class="btn-primary" onclick="goResult()">Ver mi diagnóstico →</button>
       <div class="privacy-note">Sin spam. Tu email es 100% privado. Baja cuando quieras.</div>
+      <div style="font-size:11px;color:#9ca3af;text-align:center;margin-top:8px">© 2026 Victor Vitalia · Todos los derechos reservados</div>
     </div>
   </div>
 
@@ -212,8 +213,9 @@
       <div class="recs-card"><div class="recs-label">Pasos recomendados para tu caso</div><div id="res-recs"></div></div>
       <div class="cta-main-card" id="res-cta"></div>
       <div class="result-social"><span class="stars">★★★★★</span><span class="social-text">+3.400 personas ya mejoraron con este protocolo</span></div>
+      <div style="font-size:11px;color:#9ca3af;text-align:center;margin-bottom:12px">© 2026 Victor Vitalia · Todos los derechos reservados</div>
       <button class="restart-btn" onclick="restart()">↺ Repetir el quiz desde el inicio</button>
-      <div class="footer-brand"><div class="footer-brand-name">Victor Vitalia</div><div class="footer-tagline">Soluciones naturales · Compra directa sin intermediarios</div></div>
+      <div class="footer-brand"><div class="footer-brand-name">Victor Vitalia</div><div class="footer-tagline">© 2026 Victor Vitalia · Todos los derechos reservados</div></div>
     </div>
   </div>
 </div>
@@ -305,8 +307,11 @@ function goResult(){
   fetch(FORMSPREE,{
     method:"POST",
     headers:{"Content-Type":"application/json","Accept":"application/json"},
-    body:JSON.stringify({email:email, name:uName||"Anonimo", _subject:"Nuevo lead - Victor Vitalia Miniapp"})
+    body:JSON.stringify({email:email, name:uName, _subject:"Nuevo lead - Victor Vitalia Miniapp"})
   }).catch(()=>{});
+  // Abre MailerLite en nueva ventana para enviar la GUIA
+  const guiaUrl = "https://preview.mailerlite.io/forms/2351858/187562335435490747/share?fields[email]="+encodeURIComponent(email)+"&fields[name]="+encodeURIComponent(uName);
+  window.open(guiaUrl, "_blank");
 
   const score=ans.reduce((a,b)=>a+b,0);
   let p;
