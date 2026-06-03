@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Diagnóstico de Hemorroides · Victor Vitalia</title>
+<title>Identifica tu Punto de Partida · Victor Vitalia · Victor Vitalia</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -167,7 +167,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 <!-- HEADER -->
 <div class="hdr">
   <div class="logo"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
-  <div><div class="bname">Victor Vitalia</div><div class="bsub">© Victor Vitalia · Diagnóstico gratuito</div></div>
+  <div><div class="bname">Victor Vitalia</div><div class="bsub">© Victor Vitalia · Identificación gratuita</div></div>
 </div>
 
 <!-- SCREEN 1: INTRO -->
@@ -175,18 +175,18 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
   <div class="hero">
     <div class="badge">Quiz gratuito · 2 minutos</div>
     <div class="h1">Descubre el estado real de tus hemorroides</div>
-    <div class="hsub">Responde 7 preguntas y recibe un diagnóstico personalizado con recomendaciones específicas para tu caso.</div>
+    <div class="hsub">Responde 7 preguntas y recibe un tu punto de partida personalizado con recomendaciones específicas para tu caso.</div>
   </div>
   <div class="body">
     <div class="feat-list">
       <div class="feat"><div class="ficon"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div><div><div class="ftit">7 preguntas clínicas</div><div class="fdesc">Síntomas, frecuencia, duración y hábitos</div></div></div>
-      <div class="feat"><div class="ficon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><div><div class="ftit">Diagnóstico personalizado</div><div class="fdesc">Leve, moderado o severo — con análisis para tu caso</div></div></div>
+      <div class="feat"><div class="ficon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><div><div class="ftit">Tu punto de partida personalizado</div><div class="fdesc">Leve, moderado o severo — con resultado para tu caso</div></div></div>
       <div class="feat"><div class="ficon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8"/></svg></div><div><div class="ftit">Libro + Guía gratuita</div><div class="fdesc">Acceso directo · Suscripción $4.99/mes</div></div></div>
     </div>
     <input id="inp-name" class="inp" type="text" placeholder="Tu nombre" autocomplete="given-name"/>
     <div class="err" id="name-err">Por favor introduce tu nombre para continuar.</div>
-    <button class="btn btn-green" onclick="startQuiz()">Comenzar diagnóstico gratuito →</button>
-    <div class="social"><span class="stars">★★★★★</span><span class="stxt">+3.400 personas ya recibieron su diagnóstico</span></div>
+    <button class="btn btn-green" onclick="startQuiz()">Comenzar identificación gratuita →</button>
+    <div class="social"><span class="stars">★★★★★</span><span class="stxt">+3.400 personas ya recibieron su resultado</span></div>
   </div>
 </div>
 
@@ -204,7 +204,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 <div id="s-email" class="scr" style="flex-direction:column">
   <div class="hero">
     <div class="eicon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-    <div class="etit">¡Tu diagnóstico está listo!</div>
+    <div class="etit">¡¡Tu punto de partida está listo!!</div>
     <div class="edesc">Introduce tu email para ver el resultado y recibir la Guía PDF gratuita.</div>
   </div>
   <div class="ebody">
@@ -214,7 +214,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
     </div>
     <input id="inp-email" class="inp" type="email" placeholder="tu@email.com" autocomplete="email"/>
     <div class="err" id="email-err">Por favor introduce un email válido para continuar.</div>
-    <button class="btn btn-green" onclick="goSub()">Ver mi diagnóstico →</button>
+    <button class="btn btn-green" onclick="goSub()">Ver mi punto de partida →</button>
     <div class="pnote">Sin spam · 100% privado · © 2026 Victor Vitalia</div>
   </div>
 </div>
@@ -248,7 +248,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 <div id="s-result" class="scr" style="flex-direction:column">
   <div class="rhero" id="res-hero"></div>
   <div class="rbody">
-    <div class="acard"><div class="albl">Tu análisis</div><div class="atxt" id="res-analysis"></div></div>
+    <div class="acard"><div class="albl">Tu resultado</div><div class="atxt" id="res-analysis"></div></div>
     <div class="rcard"><div class="rlbl">Pasos recomendados para tu caso</div><div id="res-recs"></div></div>
     <div class="ctacard" id="res-cta"></div>
 
