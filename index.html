@@ -14,8 +14,8 @@
     --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
     --font-serif: Georgia, 'Times New Roman', serif;
   }
-  body { font-family: var(--font-body); background: var(--bg); color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; }
-  .app { max-width: 480px; margin: 0 auto; min-height: 100vh; background: var(--white); display: flex; flex-direction: column; }
+  body { font-family: var(--font-body); background: #e8f5f0; color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+  .app { max-width: 580px; margin: 0 auto; min-height: 100vh; background: var(--white); display: flex; flex-direction: column; box-shadow: 0 0 40px rgba(0,0,0,0.08); }
 
   .header { padding: 16px 20px 12px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; background: var(--white); position: sticky; top: 0; z-index: 10; }
   .logo-dot { width: 32px; height: 32px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
@@ -90,6 +90,7 @@
   .guia-price { font-size: 12px; color: var(--green); font-weight: 500; margin-top: 4px; }
   .privacy-note { font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 10px; }
   .email-error { font-size: 12px; color: var(--red); margin-top: -8px; margin-bottom: 10px; display: none; }
+  .name-error { font-size: 12px; color: var(--red); margin-top: -8px; margin-bottom: 10px; display: none; }
 
   .result-hero { padding: 28px 20px 20px; text-align: center; }
   .severity-ring { width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
@@ -156,7 +157,8 @@
           <div><div class="feature-title">Libro + Guía gratuita</div><div class="feature-desc">Acceso directo sin intermediarios — solo Hotmart</div></div>
         </div>
       </div>
-      <input id="inp-name" class="name-field" type="text" placeholder="Tu nombre (opcional)" autocomplete="given-name" />
+      <input id="inp-name" class="name-field" type="text" placeholder="Tu nombre" autocomplete="given-name" />
+      <div class="name-error" id="name-error">Por favor introduce tu nombre para continuar.</div>
       <button class="btn-primary" onclick="startQuiz()">Comenzar diagnóstico gratuito →</button>
       <div class="social-bar"><span class="stars">★★★★★</span><span class="social-text">+3.400 personas ya recibieron su diagnóstico</span></div>
     </div>
@@ -248,6 +250,13 @@ function showScreen(id){
 
 function startQuiz(){
   uName=document.getElementById("inp-name").value.trim();
+  const nameErr=document.getElementById("name-error");
+  if(!uName){
+    nameErr.style.display="block";
+    document.getElementById("inp-name").focus();
+    return;
+  }
+  nameErr.style.display="none";
   cur=0; ans=[];
   showScreen("s-quiz"); renderQ();
 }
