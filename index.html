@@ -5,227 +5,285 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Diagnóstico de Hemorroides · Victor Vitalia</title>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --green: #1D9E75; --green-dark: #0F6E56; --green-light: #E1F5EE; --green-mid: #5DCAA5;
-    --amber: #BA7517; --amber-light: #FAEEDA; --red: #A32D2D; --red-light: #FCEBEB;
-    --text: #1a1a1a; --text-muted: #6b7280; --border: #e5e7eb; --bg: #f9f9f7;
-    --white: #ffffff; --radius: 14px; --radius-sm: 8px;
-    --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-    --font-serif: Georgia, 'Times New Roman', serif;
-  }
-  body { font-family: var(--font-body); background: #e8f5f0; color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; }
-  .app { max-width: 580px; margin: 0 auto; min-height: 100vh; background: var(--white); display: flex; flex-direction: column; box-shadow: 0 0 40px rgba(0,0,0,0.08); }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --green:#1D9E75;--green-dark:#0F6E56;--green-light:#E1F5EE;--green-mid:#5DCAA5;
+  --amber:#BA7517;--red:#A32D2D;--red-light:#FCEBEB;
+  --text:#1a1a1a;--muted:#6b7280;--border:#e5e7eb;--bg:#f0faf6;--white:#ffffff;
+  --r:12px;--rs:8px;
+  --font:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+  --serif:Georgia,'Times New Roman',serif;
+}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
+.app{max-width:580px;margin:0 auto;min-height:100vh;background:var(--white);display:flex;flex-direction:column;box-shadow:0 0 40px rgba(0,0,0,0.1)}
 
-  .header { padding: 16px 20px 12px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; background: var(--white); position: sticky; top: 0; z-index: 10; }
-  .logo-dot { width: 32px; height: 32px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .logo-dot svg { width: 18px; height: 18px; fill: white; }
-  .brand-text { font-family: var(--font-serif); font-size: 15px; font-weight: 600; color: var(--text); }
-  .brand-sub-text { font-size: 11px; color: var(--text-muted); }
+/* HEADER */
+.hdr{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;background:var(--white);position:sticky;top:0;z-index:10}
+.logo{width:32px;height:32px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.logo svg{width:18px;height:18px;fill:white}
+.bname{font-family:var(--serif);font-size:15px;font-weight:600}
+.bsub{font-size:11px;color:var(--muted)}
 
-  .progress-wrap { padding: 0 20px; margin: 16px 0 0; }
-  .progress-bar { height: 5px; background: #e5e7eb; border-radius: 3px; overflow: hidden; }
-  .progress-fill { height: 100%; background: var(--green); border-radius: 3px; transition: width 0.4s ease; }
-  .progress-label { font-size: 12px; color: var(--text-muted); margin-top: 6px; text-align: right; }
+/* PROGRESS */
+.prog-wrap{padding:0 20px;margin:16px 0 0}
+.prog-bar{height:5px;background:#e5e7eb;border-radius:3px;overflow:hidden}
+.prog-fill{height:100%;background:var(--green);border-radius:3px;transition:width 0.4s ease}
+.prog-lbl{font-size:12px;color:var(--muted);margin-top:5px;text-align:right}
 
-  .screen { display: none; flex: 1; flex-direction: column; }
-  .screen.active { display: flex; }
+/* SCREENS */
+.scr{display:none;flex:1;flex-direction:column}
+.scr.on{display:flex}
 
-  .intro-hero { background: var(--green-light); padding: 32px 20px 28px; text-align: center; }
-  .intro-badge { display: inline-block; background: var(--green); color: white; font-size: 11px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; margin-bottom: 14px; }
-  .intro-title { font-family: var(--font-serif); font-size: 24px; font-weight: 600; color: var(--green-dark); line-height: 1.3; margin-bottom: 10px; }
-  .intro-desc { font-size: 14px; color: #3a5a4a; line-height: 1.65; }
-  .intro-body { padding: 20px; flex: 1; }
+/* INTRO */
+.hero{background:var(--green-light);padding:30px 20px 26px;text-align:center}
+.badge{display:inline-block;background:var(--green);color:white;font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:12px}
+.h1{font-family:var(--serif);font-size:23px;font-weight:600;color:var(--green-dark);line-height:1.3;margin-bottom:8px}
+.hsub{font-size:14px;color:#3a5a4a;line-height:1.6}
+.body{padding:20px;flex:1}
 
-  .oferta-banner { background: #fff8e7; border: 1.5px solid #f59e0b; border-radius: var(--radius-sm); padding: 10px 14px; margin-bottom: 14px; }
-  .oferta-tag { font-size: 11px; font-weight: 500; color: #92400e; text-transform: uppercase; letter-spacing: 1px; }
-  .oferta-price { font-size: 22px; font-weight: 700; color: var(--green-dark); }
-  .oferta-original { font-size: 14px; color: var(--text-muted); text-decoration: line-through; margin-left: 6px; }
-  .oferta-pct { font-size: 12px; color: #16a34a; font-weight: 600; margin-left: 6px; }
-  .oferta-desc { font-size: 11px; color: #92400e; margin-top: 4px; }
+/* OFERTA */
+.oferta{background:#fff8e7;border:1.5px solid #f59e0b;border-radius:var(--rs);padding:12px 14px;margin-bottom:14px}
+.otag{font-size:11px;font-weight:500;color:#92400e;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.oprice{font-size:22px;font-weight:700;color:var(--green-dark)}
+.oold{font-size:14px;color:var(--muted);text-decoration:line-through;margin-left:6px}
+.opct{font-size:12px;color:#16a34a;font-weight:600;margin-left:6px}
+.odesc{font-size:11px;color:#92400e;margin-top:4px}
 
-  .feature-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
-  .feature-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; background: var(--bg); border-radius: var(--radius-sm); border: 1px solid var(--border); }
-  .feature-icon { width: 34px; height: 34px; background: var(--green-light); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .feature-icon svg { width: 18px; height: 18px; stroke: var(--green-dark); fill: none; stroke-width: 1.8; }
-  .feature-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 2px; }
-  .feature-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+/* FEATURES */
+.feat-list{display:flex;flex-direction:column;gap:10px;margin-bottom:18px}
+.feat{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;background:var(--bg);border-radius:var(--rs);border:1px solid var(--border)}
+.ficon{width:34px;height:34px;background:var(--green-light);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ficon svg{width:18px;height:18px;stroke:var(--green-dark);fill:none;stroke-width:1.8}
+.ftit{font-size:13px;font-weight:500;margin-bottom:2px}
+.fdesc{font-size:12px;color:var(--muted);line-height:1.5}
 
-  .name-field, .email-field { width: 100%; padding: 13px 16px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); font-size: 15px; font-family: var(--font-body); color: var(--text); background: var(--white); outline: none; margin-bottom: 12px; transition: border-color 0.2s; }
-  .name-field:focus, .email-field:focus { border-color: var(--green); }
+/* INPUTS */
+.inp{width:100%;padding:13px 16px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:15px;font-family:var(--font);color:var(--text);background:var(--white);outline:none;margin-bottom:8px;transition:border-color 0.2s}
+.inp:focus{border-color:var(--green)}
+.err{font-size:12px;color:var(--red);margin-bottom:10px;display:none}
 
-  .btn-primary { width: 100%; padding: 15px; background: var(--green); color: white; border: none; border-radius: var(--radius-sm); font-size: 16px; font-weight: 500; font-family: var(--font-body); cursor: pointer; transition: background 0.2s, transform 0.1s; }
-  .btn-primary:active { transform: scale(0.98); background: var(--green-dark); }
+/* BUTTONS */
+.btn{width:100%;padding:14px;border:none;border-radius:var(--rs);font-size:15px;font-weight:500;font-family:var(--font);cursor:pointer;transition:opacity 0.15s}
+.btn:active{opacity:0.85}
+.btn-green{background:var(--green);color:white}
+.btn-outline{background:transparent;border:1.5px solid var(--green);color:var(--green);margin-top:8px}
+.btn-amber{background:#d97706;color:white}
+.btn-gray{background:transparent;border:1px solid var(--border);color:var(--muted);margin-top:8px}
 
-  .social-bar { display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: var(--bg); border-radius: var(--radius-sm); border: 1px solid var(--border); margin-top: 12px; }
-  .stars { color: #f59e0b; font-size: 13px; letter-spacing: 1px; }
-  .social-text { font-size: 12px; color: var(--text-muted); }
+/* SOCIAL */
+.social{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--bg);border-radius:var(--rs);border:1px solid var(--border);margin-top:12px}
+.stars{color:#f59e0b;font-size:13px;letter-spacing:1px}
+.stxt{font-size:12px;color:var(--muted)}
 
-  .quiz-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
-  .question-text { font-family: var(--font-serif); font-size: 19px; font-weight: 500; color: var(--text); line-height: 1.4; margin-bottom: 20px; }
-  .options { display: flex; flex-direction: column; gap: 10px; flex: 1; }
-  .opt-btn { width: 100%; padding: 14px 16px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); background: var(--white); font-size: 14px; color: var(--text); font-family: var(--font-body); text-align: left; cursor: pointer; transition: all 0.15s; line-height: 1.45; display: flex; align-items: center; gap: 12px; }
-  .opt-check { width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid var(--border); flex-shrink: 0; transition: all 0.15s; }
-  .opt-btn:hover { border-color: var(--green-mid); background: var(--green-light); }
-  .opt-btn.selected { border-color: var(--green); background: var(--green-light); }
-  .opt-btn.selected .opt-check { background: var(--green); border-color: var(--green); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3'%3E%3Cpath d='M5 13l4 4L19 7'/%3E%3C/svg%3E"); background-size: 12px; background-repeat: no-repeat; background-position: center; }
-  .opt-text { flex: 1; }
-  .quiz-nav { display: flex; gap: 10px; padding: 16px 20px 24px; }
-  .btn-back { padding: 13px 18px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); background: transparent; color: var(--text-muted); font-size: 14px; font-family: var(--font-body); cursor: pointer; }
-  .btn-next { flex: 1; padding: 13px; background: var(--green); color: white; border: none; border-radius: var(--radius-sm); font-size: 15px; font-weight: 500; font-family: var(--font-body); cursor: pointer; }
-  .btn-next:disabled { opacity: 0.35; cursor: not-allowed; }
+/* QUIZ */
+.qbody{padding:20px;flex:1;display:flex;flex-direction:column}
+.qtxt{font-family:var(--serif);font-size:19px;font-weight:500;line-height:1.4;margin-bottom:20px}
+.opts{display:flex;flex-direction:column;gap:10px;flex:1}
+.opt{width:100%;padding:14px 16px;border:1.5px solid var(--border);border-radius:var(--rs);background:var(--white);font-size:14px;color:var(--text);font-family:var(--font);text-align:left;cursor:pointer;transition:all 0.15s;display:flex;align-items:center;gap:12px}
+.ocheck{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--border);flex-shrink:0;transition:all 0.15s}
+.opt:hover{border-color:var(--green-mid);background:var(--green-light)}
+.opt.sel{border-color:var(--green);background:var(--green-light)}
+.opt.sel .ocheck{background:var(--green);border-color:var(--green);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3'%3E%3Cpath d='M5 13l4 4L19 7'/%3E%3C/svg%3E");background-size:12px;background-repeat:no-repeat;background-position:center}
+.qnav{display:flex;gap:10px;padding:16px 20px 24px}
+.btn-back{padding:13px 18px;border:1.5px solid var(--border);border-radius:var(--rs);background:transparent;color:var(--muted);font-size:14px;font-family:var(--font);cursor:pointer}
+.btn-next{flex:1;padding:13px;background:var(--green);color:white;border:none;border-radius:var(--rs);font-size:15px;font-weight:500;font-family:var(--font);cursor:pointer}
+.btn-next:disabled{opacity:0.35;cursor:not-allowed}
 
-  .email-hero { background: var(--green-light); padding: 28px 20px; text-align: center; }
-  .email-icon { width: 56px; height: 56px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
-  .email-icon svg { width: 26px; height: 26px; stroke: white; fill: none; stroke-width: 1.8; }
-  .email-title { font-family: var(--font-serif); font-size: 21px; font-weight: 600; color: var(--green-dark); margin-bottom: 8px; }
-  .email-desc { font-size: 13px; color: #3a5a4a; line-height: 1.6; }
-  .email-body { padding: 20px; flex: 1; }
-  .guia-card { border: 1.5px solid var(--green-mid); border-radius: var(--radius); padding: 14px; display: flex; gap: 12px; align-items: flex-start; margin-bottom: 18px; background: #f8fffe; }
-  .guia-thumb { width: 50px; height: 66px; background: var(--green); border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .guia-thumb svg { width: 24px; height: 24px; stroke: white; fill: none; stroke-width: 1.8; }
-  .guia-tag { font-size: 10px; font-weight: 500; color: var(--green); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
-  .guia-name { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.4; margin-bottom: 4px; }
-  .guia-sub { font-size: 11px; color: var(--text-muted); }
-  .guia-price { font-size: 12px; color: var(--green); font-weight: 500; margin-top: 4px; }
-  .privacy-note { font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 10px; }
-  .email-error { font-size: 12px; color: var(--red); margin-top: -8px; margin-bottom: 10px; display: none; }
-  .name-error { font-size: 12px; color: var(--red); margin-top: -8px; margin-bottom: 10px; display: none; }
+/* EMAIL */
+.ebody{padding:20px;flex:1}
+.eicon{width:56px;height:56px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+.eicon svg{width:26px;height:26px;stroke:white;fill:none;stroke-width:1.8}
+.etit{font-family:var(--serif);font-size:21px;font-weight:600;color:var(--green-dark);margin-bottom:8px;text-align:center}
+.edesc{font-size:13px;color:#3a5a4a;line-height:1.6;text-align:center;margin-bottom:16px}
+.guia-card{border:1.5px solid var(--green-mid);border-radius:var(--r);padding:14px;display:flex;gap:12px;margin-bottom:16px;background:#f8fffe}
+.gthumb{width:50px;height:66px;background:var(--green);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.gthumb svg{width:24px;height:24px;stroke:white;fill:none;stroke-width:1.8}
+.gtag{font-size:10px;font-weight:500;color:var(--green);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.gname{font-size:13px;font-weight:500;line-height:1.4;margin-bottom:4px}
+.gsub{font-size:11px;color:var(--muted)}
+.gprice{font-size:12px;color:var(--green);font-weight:500;margin-top:4px}
+.pnote{font-size:11px;color:var(--muted);text-align:center;margin-top:8px}
 
-  .result-hero { padding: 28px 20px 20px; text-align: center; }
-  .severity-ring { width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
-  .result-sev-label { font-size: 12px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
-  .result-title { font-family: var(--font-serif); font-size: 20px; font-weight: 600; line-height: 1.35; color: var(--text); }
-  .result-body { padding: 0 20px 28px; }
-  .analysis-card { border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin-bottom: 14px; background: var(--white); }
-  .analysis-label { font-size: 11px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
-  .analysis-text { font-size: 14px; color: var(--text); line-height: 1.7; }
-  .recs-card { border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin-bottom: 14px; background: var(--bg); }
-  .recs-label { font-size: 11px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
-  .rec-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
-  .rec-num { width: 22px; height: 22px; background: var(--green); color: white; border-radius: 50%; font-size: 11px; font-weight: 500; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
-  .rec-text { font-size: 13px; color: var(--text); line-height: 1.55; flex: 1; }
-  .cta-main-card { border: 2px solid var(--green); border-radius: var(--radius); padding: 18px; margin-bottom: 10px; background: var(--white); }
-  .cta-rec-badge { display: inline-block; background: var(--green); color: white; font-size: 10px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; padding: 3px 10px; border-radius: 20px; margin-bottom: 10px; }
-  .cta-product-name { font-family: var(--font-serif); font-size: 17px; font-weight: 600; color: var(--text); margin-bottom: 6px; line-height: 1.3; }
-  .cta-product-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 10px; }
-  .price-block { display: flex; align-items: baseline; gap: 8px; margin-bottom: 14px; }
-  .price-now { font-size: 28px; font-weight: 700; color: var(--green-dark); }
-  .price-old { font-size: 16px; color: var(--text-muted); text-decoration: line-through; }
-  .price-badge { font-size: 11px; font-weight: 500; background: #fff8e7; color: #92400e; border: 1px solid #f59e0b; border-radius: 20px; padding: 2px 8px; }
-  .btn-cta-buy { display: block; width: 100%; padding: 15px; background: var(--green); color: white; border: none; border-radius: var(--radius-sm); font-size: 15px; font-weight: 500; font-family: var(--font-body); text-align: center; text-decoration: none; cursor: pointer; margin-bottom: 8px; }
-  .btn-cta-free { display: block; width: 100%; padding: 13px; border: 1.5px solid var(--green); border-radius: var(--radius-sm); color: var(--green); background: transparent; font-size: 14px; font-weight: 500; font-family: var(--font-body); text-align: center; text-decoration: none; cursor: pointer; }
-  .hotmart-note { font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 8px; }
-  .result-social { display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: var(--bg); border-radius: var(--radius-sm); border: 1px solid var(--border); margin-bottom: 20px; }
-  .restart-btn { display: block; width: 100%; padding: 12px; background: transparent; border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text-muted); font-size: 13px; font-family: var(--font-body); cursor: pointer; text-align: center; margin-bottom: 16px; }
-  .footer-brand { text-align: center; padding-bottom: 28px; }
-  .footer-brand-name { font-family: var(--font-serif); font-size: 13px; color: var(--text-muted); }
-  .footer-tagline { font-size: 11px; color: #9ca3af; margin-top: 2px; }
+/* ABBONAMENTO */
+.sub-hero{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);padding:28px 20px;text-align:center}
+.sub-badge{display:inline-block;background:#d97706;color:white;font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:12px}
+.sub-title{font-family:var(--serif);font-size:22px;font-weight:600;color:white;line-height:1.3;margin-bottom:8px}
+.sub-desc{font-size:13px;color:#a0aec0;line-height:1.6}
+.sub-body{padding:20px;flex:1}
+.sub-price-card{background:var(--bg);border:2px solid var(--green);border-radius:var(--r);padding:20px;margin-bottom:16px;text-align:center}
+.sub-price-main{font-size:42px;font-weight:700;color:var(--green-dark)}
+.sub-price-period{font-size:15px;color:var(--muted)}
+.sub-price-book{background:#fff8e7;border:1px solid #f59e0b;border-radius:var(--rs);padding:10px 14px;margin-top:12px;font-size:13px;color:#92400e}
+.sub-price-book strong{font-size:16px;color:var(--green-dark)}
+.sub-feat-list{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
+.sub-feat{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text);padding:8px 0;border-bottom:1px solid var(--border)}
+.sub-feat:last-child{border-bottom:none}
+.sub-check{width:22px;height:22px;background:var(--green-light);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;color:var(--green-dark)}
+.skip-link{display:block;text-align:center;font-size:12px;color:var(--muted);margin-top:12px;cursor:pointer;text-decoration:underline}
+
+/* RISULTATO */
+.rhero{padding:28px 20px 20px;text-align:center}
+.sring{width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+.slbl{font-size:12px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+.rtit{font-family:var(--serif);font-size:20px;font-weight:600;line-height:1.35}
+.rbody{padding:0 20px 28px}
+.acard{border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:14px;background:var(--white)}
+.albl{font-size:11px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.atxt{font-size:14px;line-height:1.7}
+.rcard{border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:14px;background:var(--bg)}
+.rlbl{font-size:11px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.rrow{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px}
+.rnum{width:22px;height:22px;background:var(--green);color:white;border-radius:50%;font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.rtxt{font-size:13px;line-height:1.55;flex:1}
+.ctacard{border:2px solid var(--green);border-radius:var(--r);padding:18px;margin-bottom:10px;background:var(--white)}
+.ctabadge{display:inline-block;background:var(--green);color:white;font-size:10px;font-weight:500;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-bottom:10px}
+.ctaname{font-family:var(--serif);font-size:17px;font-weight:600;margin-bottom:6px;line-height:1.3}
+.ctadesc{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:10px}
+.pblock{display:flex;align-items:baseline;gap:8px;margin-bottom:14px}
+.pnow{font-size:28px;font-weight:700;color:var(--green-dark)}
+.pold{font-size:16px;color:var(--muted);text-decoration:line-through}
+.pbadge{font-size:11px;font-weight:500;background:#fff8e7;color:#92400e;border:1px solid #f59e0b;border-radius:20px;padding:2px 8px}
+.btn-buy{display:block;width:100%;padding:15px;background:var(--green);color:white;border:none;border-radius:var(--rs);font-size:15px;font-weight:500;font-family:var(--font);text-align:center;text-decoration:none;cursor:pointer;margin-bottom:8px}
+.btn-free{display:block;width:100%;padding:13px;border:1.5px solid var(--green);border-radius:var(--rs);color:var(--green);background:transparent;font-size:14px;font-weight:500;font-family:var(--font);text-align:center;text-decoration:none;cursor:pointer}
+.hnote{font-size:11px;color:var(--muted);text-align:center;margin-top:8px}
+
+/* CONTATTO */
+.contact-card{border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:14px;background:var(--bg)}
+.contact-title{font-size:14px;font-weight:500;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.contact-desc{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:12px}
+.btn-contact{display:block;width:100%;padding:12px;background:#1D9E75;color:white;border:none;border-radius:var(--rs);font-size:14px;font-weight:500;font-family:var(--font);text-align:center;text-decoration:none;cursor:pointer}
+.btn-contact-sub{display:block;width:100%;padding:12px;background:#d97706;color:white;border:none;border-radius:var(--rs);font-size:14px;font-weight:500;font-family:var(--font);text-align:center;text-decoration:none;cursor:pointer;margin-top:8px}
+
+/* FOOTER */
+.footer{text-align:center;padding:16px 20px 28px;border-top:1px solid var(--border);margin-top:8px}
+.fname{font-family:var(--serif);font-size:13px;color:var(--muted)}
+.ftagline{font-size:11px;color:#9ca3af;margin-top:4px}
+.copyright{font-size:11px;color:#9ca3af;margin-top:4px}
 </style>
 </head>
 <body>
 <div class="app">
-  <div class="header">
-    <div class="logo-dot"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
-    <div><div class="brand-text">Victor Vitalia</div><div class="brand-sub-text">© Victor Vitalia · Diagnóstico gratuito</div></div>
-  </div>
 
-  <!-- INTRO -->
-  <div id="s-intro" class="screen active">
-    <div class="intro-hero">
-      <div class="intro-badge">Quiz gratuito · 2 minutos</div>
-      <div class="intro-title">Descubre el estado real de tus hemorroides</div>
-      <div class="intro-desc">Responde 7 preguntas y recibe un diagnóstico personalizado con recomendaciones específicas para tu caso.</div>
+<!-- HEADER -->
+<div class="hdr">
+  <div class="logo"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+  <div><div class="bname">Victor Vitalia</div><div class="bsub">© Victor Vitalia · Diagnóstico gratuito</div></div>
+</div>
+
+<!-- SCREEN 1: INTRO -->
+<div id="s-intro" class="scr on">
+  <div class="hero">
+    <div class="badge">Quiz gratuito · 2 minutos</div>
+    <div class="h1">Descubre el estado real de tus hemorroides</div>
+    <div class="hsub">Responde 7 preguntas y recibe un diagnóstico personalizado con recomendaciones específicas para tu caso.</div>
+  </div>
+  <div class="body">
+    <div class="feat-list">
+      <div class="feat"><div class="ficon"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div><div><div class="ftit">7 preguntas clínicas</div><div class="fdesc">Síntomas, frecuencia, duración y hábitos</div></div></div>
+      <div class="feat"><div class="ficon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><div><div class="ftit">Diagnóstico personalizado</div><div class="fdesc">Leve, moderado o severo — con análisis para tu caso</div></div></div>
+      <div class="feat"><div class="ficon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8"/></svg></div><div><div class="ftit">Libro + Guía gratuita</div><div class="fdesc">Acceso directo · Suscripción $4.99/mes</div></div></div>
     </div>
-    <div class="intro-body">
-      <div class="oferta-banner">
-        <div class="oferta-tag">Oferta de lanzamiento · 1 mes</div>
-        <div><span class="oferta-price">$17</span><span class="oferta-original">$34</span><span class="oferta-pct">50% OFF</span></div>
-        <div class="oferta-desc">Sin Amazon. Compra directa · Pago seguro vía Hotmart</div>
+    <input id="inp-name" class="inp" type="text" placeholder="Tu nombre" autocomplete="given-name"/>
+    <div class="err" id="name-err">Por favor introduce tu nombre para continuar.</div>
+    <button class="btn btn-green" onclick="startQuiz()">Comenzar diagnóstico gratuito →</button>
+    <div class="social"><span class="stars">★★★★★</span><span class="stxt">+3.400 personas ya recibieron su diagnóstico</span></div>
+  </div>
+</div>
+
+<!-- SCREEN 2: QUIZ -->
+<div id="s-quiz" class="scr" style="flex-direction:column">
+  <div class="prog-wrap"><div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div><div class="prog-lbl" id="prog-lbl">Pregunta 1 de 7</div></div>
+  <div class="qbody"><div class="qtxt" id="q-text"></div><div class="opts" id="opts-wrap"></div></div>
+  <div class="qnav">
+    <button class="btn-back" id="btn-back" onclick="prevQ()" style="display:none">← Atrás</button>
+    <button class="btn-next" id="btn-next" onclick="nextQ()" disabled>Continuar →</button>
+  </div>
+</div>
+
+<!-- SCREEN 3: EMAIL -->
+<div id="s-email" class="scr" style="flex-direction:column">
+  <div class="hero">
+    <div class="eicon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+    <div class="etit">¡Tu diagnóstico está listo!</div>
+    <div class="edesc">Introduce tu email para ver el resultado y recibir la Guía PDF gratuita.</div>
+  </div>
+  <div class="ebody">
+    <div class="guia-card">
+      <div class="gthumb"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8"/></svg></div>
+      <div><div class="gtag">Gratis · PDF inmediato</div><div class="gname">Guía: Protocolo Natural para Hemorroides</div><div class="gsub">Dieta, remedios caseros y hábitos</div><div class="gprice">Valor $9.99 · Hoy GRATIS</div></div>
+    </div>
+    <input id="inp-email" class="inp" type="email" placeholder="tu@email.com" autocomplete="email"/>
+    <div class="err" id="email-err">Por favor introduce un email válido para continuar.</div>
+    <button class="btn btn-green" onclick="goSub()">Ver mi diagnóstico →</button>
+    <div class="pnote">Sin spam · 100% privado · © 2026 Victor Vitalia</div>
+  </div>
+</div>
+
+<!-- SCREEN 4: SUSCRIPCIÓN -->
+<div id="s-sub" class="scr" style="flex-direction:column">
+  <div class="sub-hero">
+    <div class="sub-badge">Oferta exclusiva</div>
+    <div class="sub-title">Un paso más para obtener el libro a mitad de precio</div>
+    <div class="sub-desc">Suscríbete por $4.99/mes y accede al libro, a consultas directas con el autor y a todo el contenido de Victor Vitalia.</div>
+  </div>
+  <div class="sub-body">
+    <div class="sub-price-card">
+      <div><span class="sub-price-main">$4.99</span><span class="sub-price-period">/mes</span></div>
+      <div class="sub-price-book">Con la suscripción el libro te cuesta solo <strong>$17</strong> en vez de $34 · <strong>50% OFF</strong></div>
+    </div>
+    <div class="sub-feat-list">
+      <div class="sub-feat"><div class="sub-check">✓</div><span>Libro completo a precio de suscriptor ($17)</span></div>
+      <div class="sub-feat"><div class="sub-check">✓</div><span>Consultas directas con el autor Victor Vitalia</span></div>
+      <div class="sub-feat"><div class="sub-check">✓</div><span>Seguimiento personalizado de tu evolución</span></div>
+      <div class="sub-feat"><div class="sub-check">✓</div><span>Acceso a todo el contenido exclusivo</span></div>
+      <div class="sub-feat"><div class="sub-check">✓</div><span>Cancela cuando quieras</span></div>
+    </div>
+    <button class="btn btn-amber" onclick="goSubHotmart()">Suscribirme por $4.99/mes →</button>
+    <span class="skip-link" onclick="showResult()">Continuar sin suscripción (libro a $34)</span>
+    <div class="pnote" style="margin-top:12px">© 2026 Victor Vitalia · Todos los derechos reservados</div>
+  </div>
+</div>
+
+<!-- SCREEN 5: RESULTADO -->
+<div id="s-result" class="scr" style="flex-direction:column">
+  <div class="rhero" id="res-hero"></div>
+  <div class="rbody">
+    <div class="acard"><div class="albl">Tu análisis</div><div class="atxt" id="res-analysis"></div></div>
+    <div class="rcard"><div class="rlbl">Pasos recomendados para tu caso</div><div id="res-recs"></div></div>
+    <div class="ctacard" id="res-cta"></div>
+
+    <!-- CONTATTO AUTORE -->
+    <div class="contact-card">
+      <div class="contact-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        ¿Tienes preguntas urgentes?
       </div>
-      <div class="feature-list">
-        <div class="feature-item">
-          <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div>
-          <div><div class="feature-title">7 preguntas clínicas</div><div class="feature-desc">Sobre tus síntomas, frecuencia, duración y hábitos</div></div>
-        </div>
-        <div class="feature-item">
-          <div class="feature-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
-          <div><div class="feature-title">Diagnóstico de severidad personalizado</div><div class="feature-desc">Leve, moderado o severo — con análisis para tu caso</div></div>
-        </div>
-        <div class="feature-item">
-          <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></div>
-          <div><div class="feature-title">Libro + Guía gratuita</div><div class="feature-desc">Acceso directo sin intermediarios — solo Hotmart</div></div>
-        </div>
-      </div>
-      <input id="inp-name" class="name-field" type="text" placeholder="Tu nombre" autocomplete="given-name" />
-      <div class="name-error" id="name-error">Por favor introduce tu nombre para continuar.</div>
-      <button class="btn-primary" onclick="startQuiz()">Comenzar diagnóstico gratuito →</button>
-      <div class="social-bar"><span class="stars">★★★★★</span><span class="social-text">+3.400 personas ya recibieron su diagnóstico</span></div>
+      <div class="contact-desc">Como suscriptor puedes contactar directamente al autor Victor Vitalia para resolver tus dudas, hacer seguimiento de tu evolución y recibir consejos personalizados.</div>
+      <a href="mailto:vitaliawriter@gmail.com" class="btn-contact">Escribir al autor →</a>
+      <a href="PLACEHOLDER_HOTMART_SUB" target="_blank" class="btn-contact-sub">Suscribirme para consultas ilimitadas ($4.99/mes)</a>
     </div>
-  </div>
 
-  <!-- QUIZ -->
-  <div id="s-quiz" class="screen" style="flex-direction:column">
-    <div class="progress-wrap">
-      <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
-      <div class="progress-label" id="prog-label">Pregunta 1 de 7</div>
-    </div>
-    <div class="quiz-body">
-      <div class="question-text" id="q-text"></div>
-      <div class="options" id="opts-wrap"></div>
-    </div>
-    <div class="quiz-nav">
-      <button class="btn-back" id="btn-back" onclick="prevQ()" style="display:none">← Atrás</button>
-      <button class="btn-next" id="btn-next" onclick="nextQ()" disabled>Continuar →</button>
-    </div>
-  </div>
-
-  <!-- EMAIL (obbligatoria) -->
-  <div id="s-email" class="screen" style="flex-direction:column">
-    <div class="email-hero">
-      <div class="email-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-      <div class="email-title">¡Tu diagnóstico está listo!</div>
-      <div class="email-desc">Introduce tu email para ver el resultado y recibir también la Guía PDF gratuita.</div>
-    </div>
-    <div class="email-body">
-      <div class="guia-card">
-        <div class="guia-thumb"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8"/></svg></div>
-        <div class="guia-info">
-          <div class="guia-tag">Gratis · PDF Inmediato</div>
-          <div class="guia-name">Guía: Protocolo Natural para Hemorroides</div>
-          <div class="guia-sub">Dieta, remedios caseros y hábitos — paso a paso</div>
-          <div class="guia-price">Valor: $9.99 · Hoy: GRATIS</div>
-        </div>
-      </div>
-      <input id="inp-email" class="email-field" type="email" placeholder="tu@email.com" autocomplete="email" />
-      <div class="email-error" id="email-error">Por favor introduce un email válido para continuar.</div>
-      <button class="btn-primary" onclick="goResult()">Ver mi diagnóstico →</button>
-      <div class="privacy-note">Sin spam. Tu email es 100% privado. Baja cuando quieras.</div>
-      <div style="font-size:11px;color:#9ca3af;text-align:center;margin-top:8px">© 2026 Victor Vitalia · Todos los derechos reservados</div>
-    </div>
-  </div>
-
-  <!-- RESULTADO -->
-  <div id="s-result" class="screen" style="flex-direction:column">
-    <div class="result-hero" id="res-hero"></div>
-    <div class="result-body">
-      <div class="analysis-card"><div class="analysis-label">Tu análisis</div><div class="analysis-text" id="res-analysis"></div></div>
-      <div class="recs-card"><div class="recs-label">Pasos recomendados para tu caso</div><div id="res-recs"></div></div>
-      <div class="cta-main-card" id="res-cta"></div>
-      <div class="result-social"><span class="stars">★★★★★</span><span class="social-text">+3.400 personas ya mejoraron con este protocolo</span></div>
-      <div style="font-size:11px;color:#9ca3af;text-align:center;margin-bottom:12px">© 2026 Victor Vitalia · Todos los derechos reservados</div>
-      <button class="restart-btn" onclick="restart()">↺ Repetir el quiz desde el inicio</button>
-      <div class="footer-brand"><div class="footer-brand-name">Victor Vitalia</div><div class="footer-tagline">© 2026 Victor Vitalia · Todos los derechos reservados</div></div>
+    <div class="social"><span class="stars">★★★★★</span><span class="stxt">+3.400 personas ya mejoraron con este protocolo</span></div>
+    <button class="btn btn-gray" onclick="restart()" style="margin-top:4px">↺ Repetir el quiz</button>
+    <div class="footer">
+      <div class="fname">Victor Vitalia</div>
+      <div class="ftagline">Soluciones naturales · Compra directa sin intermediarios</div>
+      <div class="copyright">© 2026 Victor Vitalia · Todos los derechos reservados</div>
     </div>
   </div>
 </div>
 
-<script>
-const HOTMART = "https://go.hotmart.com/E105290431J";
-const GUIA = "https://preview.mailerlite.io/forms/2351858/187562335435490747/share";
-const FORMSPREE = "https://formspree.io/f/xaqzwgyb";
+</div><!-- /app -->
 
-const Qs = [
+<script>
+const HOTMART_LIBRO = "https://go.hotmart.com/E105290431J";
+const HOTMART_SUB   = "PLACEHOLDER_HOTMART_SUB"; // sostituire con link abbonamento $4.99
+const GUIA          = "https://preview.mailerlite.io/forms/2351858/187562335435490747/share";
+const FORMSPREE     = "https://formspree.io/f/xaqzwgyb";
+
+let isSub = false; // diventa true se l'utente si abbona
+
+const Qs=[
   {q:"¿Con qué frecuencia sientes dolor o molestia en la zona anal?",opts:["Nunca o casi nunca","Solo al ir al baño","Varias veces al día","Constantemente, incluso en reposo"]},
   {q:"¿Observas sangrado al defecar?",opts:["No, nunca","A veces manchas pequeñas en el papel","Sangre visible en las heces","Sangrado abundante o frecuente"]},
   {q:"¿Sientes picazón o ardor en la zona perianal?",opts:["No tengo este síntoma","Picazón leve y ocasional","Picazón moderada que me distrae","Picazón intensa que afecta mi día a día"]},
@@ -235,47 +293,40 @@ const Qs = [
   {q:"¿Has probado algún tratamiento previo para las hemorroides?",opts:["No, es mi primera vez buscando solución","Cremas o supositorios sin resultado duradero","Tratamientos naturales con poco efecto","Intervenciones médicas pero volvieron"]}
 ];
 
-const profiles = {
-  low:{color:"#1D9E75",bg:"#E1F5EE",labelColor:"#085041",label:"Nivel: Leve",title:"Tus síntomas son leves — actúa ahora antes de que avancen",analysis:"Tus respuestas indican hemorroides en etapa inicial. Esta es la mejor etapa para intervenir: con cambios en la dieta, hábitos y remedios naturales puedes resolver el problema de raíz antes de que progrese.",recs:["Aumenta tu consumo de fibra (25–30 g/día) con frutas, verduras y legumbres","Bebe al menos 2 litros de agua al día — la hidratación es clave","Evita estar sentado más de 30 minutos seguidos sin levantarte","Aplica compresas frías tras la defecación para reducir la inflamación"]},
-  med:{color:"#BA7517",bg:"#FAEEDA",labelColor:"#633806",label:"Nivel: Moderado",title:"Tus síntomas son moderados — necesitas un protocolo estructurado",analysis:"Tus respuestas muestran hemorroides en fase activa con síntomas recurrentes. El sangrado intermitente o el prolapso leve requieren un enfoque combinado: ajuste dietético, rutinas específicas y remedios naturales probados.",recs:["Aplica el protocolo anti-inflamatorio: dieta + baños de asiento + ungüentos naturales","Evita el estreñimiento a toda costa: psyllium, ciruela, hidratación constante","No hagas esfuerzo al defecar — usa un escabel para elevar los pies","Sigue el plan de 21 días del libro para resultados duraderos"]},
-  high:{color:"#A32D2D",bg:"#FCEBEB",labelColor:"#791F1F",label:"Nivel: Severo",title:"Tus síntomas son severos — necesitas un plan de acción inmediato",analysis:"Tus respuestas indican hemorroides avanzadas con síntomas crónicos. Muchos casos severos responden bien a protocolos naturales intensivos antes de necesitar cirugía. Necesitas información precisa y un plan estructurado.",recs:["Aplica frío local 3 veces al día para reducir la inflamación aguda","El protocolo intensivo del libro está diseñado para casos como el tuyo","Evita totalmente picantes, alcohol y largas horas sentado durante el protocolo","Si hay sangrado abundante, consulta también con tu médico"]}
+const P={
+  low:{c:"#1D9E75",bg:"#E1F5EE",lc:"#085041",l:"Nivel: Leve",t:"Tus síntomas son leves — actúa ahora antes de que avancen",a:"Tus respuestas indican hemorroides en etapa inicial. Esta es la mejor etapa para intervenir: con cambios en la dieta, hábitos y remedios naturales puedes resolver el problema antes de que progrese.",r:["Aumenta tu consumo de fibra (25–30 g/día) con frutas, verduras y legumbres","Bebe al menos 2 litros de agua al día — la hidratación es clave","Evita estar sentado más de 30 minutos seguidos sin levantarte","Aplica compresas frías tras la defecación para reducir la inflamación"]},
+  med:{c:"#BA7517",bg:"#FAEEDA",lc:"#633806",l:"Nivel: Moderado",t:"Tus síntomas son moderados — necesitas un protocolo estructurado",a:"Tus respuestas muestran hemorroides en fase activa. El sangrado intermitente o el prolapso leve requieren un enfoque combinado: dieta, rutinas específicas y remedios naturales probados.",r:["Aplica el protocolo anti-inflamatorio: dieta + baños de asiento + ungüentos naturales","Evita el estreñimiento: psyllium, ciruela, hidratación constante","No hagas esfuerzo al defecar — usa un escabel para elevar los pies","Sigue el plan de 21 días del libro para resultados duraderos"]},
+  high:{c:"#A32D2D",bg:"#FCEBEB",lc:"#791F1F",l:"Nivel: Severo",t:"Tus síntomas son severos — necesitas un plan de acción inmediato",a:"Tus respuestas indican hemorroides avanzadas con síntomas crónicos. Muchos casos severos responden bien a protocolos naturales intensivos antes de necesitar cirugía. Necesitas un plan estructurado.",r:["Aplica frío local 3 veces al día para reducir la inflamación aguda","El protocolo intensivo del libro está diseñado para casos como el tuyo","Evita picantes, alcohol y largas horas sentado durante el protocolo","Si hay sangrado abundante, consulta también con tu médico"]}
 };
 
-let cur=0, ans=[], uName="";
+let cur=0,ans=[],uName="";
 
-function showScreen(id){
-  document.querySelectorAll(".screen").forEach(s=>{s.classList.remove("active");s.style.display="none";});
+function show(id){
+  document.querySelectorAll(".scr").forEach(s=>{s.classList.remove("on");s.style.display="none";});
   const el=document.getElementById(id);
-  el.classList.add("active"); el.style.display="flex";
+  el.classList.add("on");el.style.display="flex";
   window.scrollTo(0,0);
 }
 
 function startQuiz(){
   uName=document.getElementById("inp-name").value.trim();
-  const nameErr=document.getElementById("name-error");
-  if(!uName){
-    nameErr.style.display="block";
-    document.getElementById("inp-name").focus();
-    return;
-  }
-  nameErr.style.display="none";
-  cur=0; ans=[];
-  showScreen("s-quiz"); renderQ();
+  const e=document.getElementById("name-err");
+  if(!uName){e.style.display="block";document.getElementById("inp-name").focus();return;}
+  e.style.display="none";
+  cur=0;ans=[];show("s-quiz");renderQ();
 }
 
 function renderQ(){
   const q=Qs[cur];
   document.getElementById("q-text").textContent=q.q;
   document.getElementById("prog-fill").style.width=((cur/Qs.length)*100)+"%";
-  document.getElementById("prog-label").textContent="Pregunta "+(cur+1)+" de "+Qs.length;
-  const wrap=document.getElementById("opts-wrap");
-  wrap.innerHTML="";
+  document.getElementById("prog-lbl").textContent="Pregunta "+(cur+1)+" de "+Qs.length;
+  const w=document.getElementById("opts-wrap");w.innerHTML="";
   q.opts.forEach((o,i)=>{
-    const btn=document.createElement("button");
-    btn.className="opt-btn"+(ans[cur]===i?" selected":"");
-    btn.innerHTML='<div class="opt-check"></div><span class="opt-text">'+o+'</span>';
-    btn.onclick=()=>pick(i);
-    wrap.appendChild(btn);
+    const b=document.createElement("button");
+    b.className="opt"+(ans[cur]===i?" sel":"");
+    b.innerHTML='<div class="ocheck"></div><span>'+o+'</span>';
+    b.onclick=()=>pick(i);w.appendChild(b);
   });
   document.getElementById("btn-next").disabled=ans[cur]===undefined;
   document.getElementById("btn-back").style.display=cur===0?"none":"";
@@ -283,64 +334,62 @@ function renderQ(){
 
 function pick(i){
   ans[cur]=i;
-  document.querySelectorAll(".opt-btn").forEach((b,idx)=>b.classList.toggle("selected",idx===i));
+  document.querySelectorAll(".opt").forEach((b,idx)=>b.classList.toggle("sel",idx===i));
   document.getElementById("btn-next").disabled=false;
 }
 
 function nextQ(){
-  if(ans[cur]===undefined) return;
-  if(cur<Qs.length-1){cur++;renderQ();}
-  else{showScreen("s-email");}
+  if(ans[cur]===undefined)return;
+  if(cur<Qs.length-1){cur++;renderQ();}else{show("s-email");}
 }
 function prevQ(){if(cur>0){cur--;renderQ();}}
 
-function goResult(){
+function goSub(){
   const email=document.getElementById("inp-email").value.trim();
-  const errEl=document.getElementById("email-error");
-  if(!email || !email.includes("@") || !email.includes(".")){
-    errEl.style.display="block";
-    document.getElementById("inp-email").focus();
-    return;
-  }
-  errEl.style.display="none";
-
-  fetch(FORMSPREE,{
-    method:"POST",
-    headers:{"Content-Type":"application/json","Accept":"application/json"},
-    body:JSON.stringify({email:email, name:uName, _subject:"Nuevo lead - Victor Vitalia Miniapp"})
-  }).catch(()=>{});
-  // Abre MailerLite en nueva ventana para enviar la GUIA
-  const guiaUrl = "https://preview.mailerlite.io/forms/2351858/187562335435490747/share?fields[email]="+encodeURIComponent(email)+"&fields[name]="+encodeURIComponent(uName);
-  window.open(guiaUrl, "_blank");
-
-  const score=ans.reduce((a,b)=>a+b,0);
-  let p;
-  if(score<=6) p=profiles.low;
-  else if(score<=13) p=profiles.med;
-  else p=profiles.high;
-
-  const greeting=uName?uName+", ":"";
-  document.getElementById("res-hero").innerHTML=`
-    <div class="severity-ring" style="background:${p.bg};color:${p.color}">
-      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-    </div>
-    <div class="result-sev-label" style="color:${p.labelColor}">${p.label}</div>
-    <div class="result-title">${greeting}${p.title}</div>`;
-  document.getElementById("res-analysis").textContent=p.analysis;
-  document.getElementById("res-recs").innerHTML=p.recs.map((r,i)=>
-    `<div class="rec-row"><div class="rec-num">${i+1}</div><div class="rec-text">${r}</div></div>`).join("");
-  document.getElementById("res-cta").innerHTML=`
-    <div class="cta-rec-badge">Recomendado para tu caso</div>
-    <div class="cta-product-name">Una Solución Duradera para las Hemorroides</div>
-    <div class="cta-product-desc">El método natural completo con el plan de 21 días. 154 páginas. Compra directa sin Amazon.</div>
-    <div class="price-block"><span class="price-now">$17</span><span class="price-old">$34</span><span class="price-badge">50% OFF · Lanzamiento</span></div>
-    <a href="${HOTMART}" target="_blank" class="btn-cta-buy">Comprar ahora en Hotmart →</a>
-    <a href="${GUIA}" target="_blank" class="btn-cta-free">Descargar la Guía gratuita</a>
-    <div class="hotmart-note">🔒 Pago seguro · Hotmart · Acceso inmediato</div>`;
-  showScreen("s-result");
+  const e=document.getElementById("email-err");
+  if(!email||!email.includes("@")||!email.includes(".")){e.style.display="block";document.getElementById("inp-email").focus();return;}
+  e.style.display="none";
+  fetch(FORMSPREE,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify({email:email,name:uName,_subject:"Nuevo lead - Victor Vitalia Miniapp"})}).catch(()=>{});
+  window.open(GUIA,"_blank");
+  show("s-sub");
 }
 
-function restart(){showScreen("s-intro");}
+function goSubHotmart(){
+  isSub=true;
+  window.open(HOTMART_SUB,"_blank");
+  showResult();
+}
+
+function showResult(){
+  const score=ans.reduce((a,b)=>a+b,0);
+  let p;
+  if(score<=6)p=P.low;else if(score<=13)p=P.med;else p=P.high;
+  const precio=isSub?"$17":"$34";
+  const oldPrice=isSub?"<span class='pold'>$34</span>":"";
+  const badge=isSub?'<span class="pbadge">50% OFF · Suscriptor</span>':"";
+  const ctaText=isSub?"Comprar el libro ahora ($17) →":"Suscribirme y comprar el libro ($17) →";
+  const ctaUrl=isSub?HOTMART_LIBRO:HOTMART_SUB;
+
+  document.getElementById("res-hero").innerHTML=`
+    <div class="sring" style="background:${p.bg};color:${p.c}">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+    </div>
+    <div class="slbl" style="color:${p.lc}">${p.l}</div>
+    <div class="rtit">${uName}, ${p.t}</div>`;
+  document.getElementById("res-analysis").textContent=p.a;
+  document.getElementById("res-recs").innerHTML=p.r.map((r,i)=>`<div class="rrow"><div class="rnum">${i+1}</div><div class="rtxt">${r}</div></div>`).join("");
+  document.getElementById("res-cta").innerHTML=`
+    <div class="ctabadge">Recomendado para tu caso</div>
+    <div class="ctaname">Una Solución Duradera para las Hemorroides</div>
+    <div class="ctadesc">El método natural completo con el plan de 21 días. 154 páginas. Compra directa sin Amazon.</div>
+    <div class="pblock"><span class="pnow">${precio}</span>${oldPrice}${badge}</div>
+    <a href="${ctaUrl}" target="_blank" class="btn-buy">${ctaText}</a>
+    <a href="${GUIA}" target="_blank" class="btn-free">Descargar la Guía gratuita</a>
+    <div class="hnote">🔒 Pago seguro · Hotmart · © 2026 Victor Vitalia</div>`;
+  show("s-result");
+}
+
+function restart(){show("s-intro");}
 </script>
 </body>
 </html>
